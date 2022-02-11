@@ -1,5 +1,6 @@
-package guru.qa;
-import com.codeborne.selenide.Configuration; //"1920x1080"
+package guru.qa.tests;
+
+import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,7 +11,7 @@ import static com.codeborne.selenide.Selenide.*;
 
 @DisplayName("Это страница Practice Form (v.3)")
 
-public class RegistrationFormTests {
+public class RegistrationFormWithPageObjectsTests {
 
     @BeforeAll
     static void openPage() {
