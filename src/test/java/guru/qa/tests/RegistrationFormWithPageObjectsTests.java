@@ -1,6 +1,7 @@
 package guru.qa.tests;
 
 import com.codeborne.selenide.Configuration;
+import guru.qa.pages.RegistrationPage;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,7 +23,8 @@ public class RegistrationFormWithPageObjectsTests {
 
     @Test
     void studentRegistrationFormTests() {
-        $("[id=firstName]").setValue("Olga");
+        //$("[id=firstName]").setValue("Olga");
+        new RegistrationPage().setFirstName("Olga");
         $("[id=lastName]").setValue("Kos");
         $("#userEmail").setValue("ok@yandex.ru");
         $(byText("Female")).click(); //Gender // todo возможны вараинты, подумать
