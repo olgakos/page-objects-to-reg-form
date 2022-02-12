@@ -20,6 +20,7 @@ public class RegistrationFormWithPageObjectsTests {
     RegistrationPage registrationPage = new RegistrationPage();
     //final private String firstName = "Olga"; // так тоже можно, но избыточно
     String firstName = "Olga";
+    String lastName = "Kos";
 
     @BeforeAll
     static void openPage() {
@@ -29,11 +30,9 @@ public class RegistrationFormWithPageObjectsTests {
 
     @Test
     void studentRegistrationFormTests() {
-        registrationPage.openPage();
-        //$("[id=firstName]").setValue("Olga");
-        registrationPage.setFirstName(firstName);
-        //$("[id=lastName]").setValue("Kos");
-        new RegistrationPage().setLastName("Kos");
+        registrationPage.openPage() // перешли на страницу /automation-practice-form/
+            .setFirstName(firstName)
+            .setLastName(lastName);
         //$("#userEmail").setValue("test@test.ru");
         new RegistrationPage().setUserEmail("test@test.ru");
         //$("#genderWrapper").$(byText("Female")).click();  todo: 2 вариант локатора
@@ -111,7 +110,6 @@ public class RegistrationFormWithPageObjectsTests {
 
         $("#closeLargeModal").click(); //button
     }
-
 }
 
 

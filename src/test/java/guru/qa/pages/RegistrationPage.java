@@ -12,23 +12,40 @@ public class RegistrationPage {
     // components
 
     // locators
-    public void openPage(){
-        open("/automation-practice-form/"); // старница после baseUrl
-        $(byText("Student Registration Form")); //проверка заголовка страницы
-    }
-
     //private SelenideElement firstNameInput = $("#firstName"); // так тоже можно, но избыточно
+
+    /*
+    // так тоже можно, но избыточно-2
     SelenideElement firstNameInput = $("#firstName");
     SelenideElement lastNameInput = $("#lastName");
     SelenideElement userEmailInput = $("#userEmail");
     SelenideElement resultsTable = $(".table-responsive");
+    */
+
+    private SelenideElement
+            headerTitle = $(".practice-form-wrapper"), // заголовок страницы регистрации
+            firstNameInput = $("#firstName"),
+            lastNameInput = $("#lastName"),
+            userEmailInput = $("#userEmail"),
+            resultsTable = $(".table-responsive");
 
     // actions
+    public RegistrationPage openPage(){
+        open("/automation-practice-form/"); // страница после baseUrl
+        //вариант 2 проверка заголовка страницы (стало)
+        headerTitle.shouldHave(text("Student Registration Form"));
+
+        return this;
+    }
     //”Olga”
-    public void setFirstName(String firstName) {firstNameInput.setValue(firstName);
+    public RegistrationPage setFirstName(String firstName) {firstNameInput.setValue(firstName);
+
+        return this;
     }
     //”Kos”
-    public void setLastName(String lastName) {lastNameInput.setValue(lastName);
+    public RegistrationPage setLastName(String lastName) {lastNameInput.setValue(lastName);
+
+        return this;
     }
     //”test@test.ru”
     public void setUserEmail (String userEmail) {userEmailInput.setValue(userEmail);
