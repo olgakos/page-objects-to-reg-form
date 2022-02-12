@@ -21,6 +21,7 @@ public class RegistrationFormWithPageObjectsTests {
     //final private String firstName = "Olga"; // так тоже можно, но избыточно
     String firstName = "Olga";
     String lastName = "Kos";
+    String userEmail = "test@test.ru";
 
     @BeforeAll
     static void openPage() {
@@ -32,9 +33,8 @@ public class RegistrationFormWithPageObjectsTests {
     void studentRegistrationFormTests() {
         registrationPage.openPage() // перешли на страницу /automation-practice-form/
             .setFirstName(firstName)
-            .setLastName(lastName);
-        //$("#userEmail").setValue("test@test.ru");
-        new RegistrationPage().setUserEmail("test@test.ru");
+            .setLastName(lastName)
+            .setUserEmail(userEmail);
         //$("#genderWrapper").$(byText("Female")).click();  todo: 2 вариант локатора
         $(byText("Female")).click(); //Gender
         $("#userNumber").setValue("8125560781"); //Mobile(10 Digits)
@@ -66,47 +66,25 @@ public class RegistrationFormWithPageObjectsTests {
         $("#city").click();
         $(byText("Panipat")).click();
 
-/*
-        //2 X-вариант, тоже рабочий
-        $x("//*[@id ='state']").click(); // попали в поле
-        $x("//*[text() = 'Haryana']").hover().click();
-        $x("//*[@id ='city']").click();
-        $x("//*[text() ='Panipat']").hover().click();
-*/
         //button
         //$("#submit").click();
         $("#submit").scrollTo().click(); //скролл на случай если кнопка перекрыта баннером
 
         //Checking table/checkForm
        $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
-
-        /*
-        //было ранее. Вариант 1 :
-        $(".table-responsive").shouldHave(
-                text("Olga Kos"),
-                text("ok@yandex.ru"),
-                text("Female"),
-                text("8125560781"),
-                text("23 April,2000"),
-                text("English, History"),
-                text("Sports, Reading, Music"),
-                text("pytpng.png"),
-                text("Moskovskoe 1"),
-                text("Haryana Panipat")
-        );
-        */
-
         //Label / Values
-        registrationPage.checkForm("Student Name", firstName + " Kos");
-        registrationPage.checkForm("Student Email", "test@test.ru");
-        registrationPage.checkForm("Gender", "Female");
-        registrationPage.checkForm("Mobile", "8125560781");
-        registrationPage.checkForm("Date of Birth", "23 April,2000");
-        registrationPage.checkForm("Subjects", "English, History");
-        registrationPage.checkForm("Hobbies", "Sports, Reading, Music");
-        registrationPage.checkForm("Picture", "pytpng.png");
-        registrationPage.checkForm("Address", "Moskovskoe 1");
-        registrationPage.checkForm("State and City", "Haryana Panipat");
+        //registrationPage.openPage()
+        registrationPage
+            .checkForm("Student Name", firstName + " " + lastName)
+            .checkForm("Student Email", userEmail)
+            .checkForm("Gender", "Female")
+            .checkForm("Mobile", "8125560781")
+            .checkForm("Date of Birth", "23 April,2000")
+            .checkForm("Subjects", "English, History")
+            .checkForm("Hobbies", "Sports, Reading, Music")
+            .checkForm("Picture", "pytpng.png")
+            .checkForm("Address", "Moskovskoe 1")
+            .checkForm("State and City", "Haryana Panipat");
 
         $("#closeLargeModal").click(); //button
     }

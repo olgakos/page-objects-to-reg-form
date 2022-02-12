@@ -12,16 +12,6 @@ public class RegistrationPage {
     // components
 
     // locators
-    //private SelenideElement firstNameInput = $("#firstName"); // так тоже можно, но избыточно
-
-    /*
-    // так тоже можно, но избыточно-2
-    SelenideElement firstNameInput = $("#firstName");
-    SelenideElement lastNameInput = $("#lastName");
-    SelenideElement userEmailInput = $("#userEmail");
-    SelenideElement resultsTable = $(".table-responsive");
-    */
-
     private SelenideElement
             headerTitle = $(".practice-form-wrapper"), // заголовок страницы регистрации
             firstNameInput = $("#firstName"),
@@ -33,6 +23,7 @@ public class RegistrationPage {
     public RegistrationPage openPage(){
         open("/automation-practice-form/"); // страница после baseUrl
         //вариант 2 проверка заголовка страницы (стало)
+
         headerTitle.shouldHave(text("Student Registration Form"));
 
         return this;
@@ -48,15 +39,21 @@ public class RegistrationPage {
         return this;
     }
     //”test@test.ru”
-    public void setUserEmail (String userEmail) {userEmailInput.setValue(userEmail);
+    public RegistrationPage setUserEmail (String userEmail) {userEmailInput.setValue(userEmail);
+
+        return this;
     }
 
     //...
 
     //Checking table/checkForm
     //Label and Values:
-    public void checkForm(String fieldName, String value) {
-        resultsTable.$(byText(fieldName)) //ячейка "Как называется поле"
-            .parent().shouldHave(text(value)); //ячейка "пользователськое Значение"
+    public RegistrationPage checkForm(String fieldName, String value) {
+             //ячейка "Как называется поле
+             resultsTable.$(byText(fieldName))
+            // ячейка "пользователськое Значение"
+            .parent().shouldHave(text(value));
+
+        return this;
     }
 }
