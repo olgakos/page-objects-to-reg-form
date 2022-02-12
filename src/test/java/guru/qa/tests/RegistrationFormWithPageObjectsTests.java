@@ -17,20 +17,27 @@ import static com.codeborne.selenide.Selenide.open;
 
 public class RegistrationFormWithPageObjectsTests {
 
+    RegistrationPage registrationPage = new RegistrationPage();
+    //final private String firstName = "Olga"; // так тоже можно, но избыточно
+    String firstName = "Olga";
+
     @BeforeAll
     static void openPage() {
+        Configuration.baseUrl = "https://demoqa.com";
         Configuration.browserSize = "1920x1080";
-        open("https://demoqa.com/automation-practice-form/");
-        $(byText("Student Registration Form")); //проверка заголовка страницы
     }
 
     @Test
     void studentRegistrationFormTests() {
+        registrationPage.openPage();
         //$("[id=firstName]").setValue("Olga");
-        new RegistrationPage().setFirstName("Olga");
-        $("[id=lastName]").setValue("Kos");
-        $("#userEmail").setValue("ok@yandex.ru");
-        $(byText("Female")).click(); //Gender // todo возможны вараинты, подумать
+        registrationPage.setFirstName(firstName);
+        //$("[id=lastName]").setValue("Kos");
+        new RegistrationPage().setLastName("Kos");
+        //$("#userEmail").setValue("test@test.ru");
+        new RegistrationPage().setUserEmail("test@test.ru");
+        //$("#genderWrapper").$(byText("Female")).click();  todo: 2 вариант локатора
+        $(byText("Female")).click(); //Gender
         $("#userNumber").setValue("8125560781"); //Mobile(10 Digits)
 
         //Date of Birth
@@ -75,7 +82,7 @@ public class RegistrationFormWithPageObjectsTests {
        $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
 
         /*
-        //было ранее:
+        //было ранее. Вариант 1 :
         $(".table-responsive").shouldHave(
                 text("Olga Kos"),
                 text("ok@yandex.ru"),
@@ -91,16 +98,16 @@ public class RegistrationFormWithPageObjectsTests {
         */
 
         //Label / Values
-        new RegistrationPage().checkForm("Student Name", "Olga Kos");
-        new RegistrationPage().checkForm("Student Email", "ok@yandex.ru");
-        new RegistrationPage().checkForm("Gender", "Female");
-        new RegistrationPage().checkForm("Mobile", "8125560781");
-        new RegistrationPage().checkForm("Date of Birth", "23 April,2000");
-        new RegistrationPage().checkForm("Subjects", "English, History");
-        new RegistrationPage().checkForm("Hobbies", "Sports, Reading, Music");
-        new RegistrationPage().checkForm("Picture", "pytpng.png");
-        new RegistrationPage().checkForm("Address", "Moskovskoe 1");
-        new RegistrationPage().checkForm("State and City", "Haryana Panipat");
+        registrationPage.checkForm("Student Name", firstName + " Kos");
+        registrationPage.checkForm("Student Email", "test@test.ru");
+        registrationPage.checkForm("Gender", "Female");
+        registrationPage.checkForm("Mobile", "8125560781");
+        registrationPage.checkForm("Date of Birth", "23 April,2000");
+        registrationPage.checkForm("Subjects", "English, History");
+        registrationPage.checkForm("Hobbies", "Sports, Reading, Music");
+        registrationPage.checkForm("Picture", "pytpng.png");
+        registrationPage.checkForm("Address", "Moskovskoe 1");
+        registrationPage.checkForm("State and City", "Haryana Panipat");
 
         $("#closeLargeModal").click(); //button
     }
