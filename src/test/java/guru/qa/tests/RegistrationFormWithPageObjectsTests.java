@@ -40,29 +40,29 @@ public class RegistrationFormWithPageObjectsTests {
 
     @Test
     void studentRegistrationFormTests() {
+
         registrationPage.openPage() // перешли на страницу /automation-practice-form/
             .setFirstName(firstName)
             .setLastName(lastName)
             .setUserEmail(userEmail)
-            .setGender(gender)
+            //.setGender(gender)
             .setUserNumber(userNumber)
             //.setSubjects(subjects1, subjects2)
             //.setHobbies(hobbies)
             //.setUploadPicture(addImg)
             .setAddress(address)
             .setState(state)
-            .setCity(city)
-            .submit(); // кнопка загрузить
-
+            .setCity(city);
+        registrationPage.setBirthDate("23", "3","2000"); //3 it's Apri
+            //.submit(); // кнопка загрузить
 
         //$("#genderWrapper").$(byText("Female")).click();  todo: 2 вариант локатора
         $(byText("Female")).click(); //Gender
 
-        registrationPage.setBirthDate("23", "3","2000"); //3 it's Apri
-
         //Subjects (мульти-список)
         $("#subjectsInput").setValue("English").pressEnter();
         $("#subjectsInput").setValue("History").pressEnter();
+
         //Hobbies (check-boxes)
         $("#hobbies-checkbox-1").scrollTo().parent().click();
         $(byText("Reading")).click();
@@ -84,7 +84,7 @@ public class RegistrationFormWithPageObjectsTests {
 
         //button
         //$("#submit").click();
-        //$("#submit").scrollTo().click(); //скролл на случай если кнопка перекрыта баннером
+        $("#submit").scrollTo().click(); //скролл на случай если кнопка перекрыта баннером
 
         //Checking table/checkForm
        $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));

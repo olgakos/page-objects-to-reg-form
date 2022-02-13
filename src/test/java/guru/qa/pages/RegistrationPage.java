@@ -56,7 +56,7 @@ public class RegistrationPage {
 
 
     //Gender
-    public RegistrationPage set Gender (String gender) {
+    public RegistrationPage setGender (String gender) {
         //genderInput.setValue(gender);
         $(byText(gender)).click();
     return this;
@@ -103,10 +103,12 @@ public class RegistrationPage {
         return this;
     }
 
+    /*
     public RegistrationPage submit() {
         submitButton.click();
         return this;
     }
+    */
 
     //Checking table/checkForm
     //Label and Values:
