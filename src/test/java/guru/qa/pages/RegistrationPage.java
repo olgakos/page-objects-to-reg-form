@@ -3,7 +3,7 @@ package guru.qa.pages;
 import guru.qa.pages.components.CalendarComponent;
 import com.codeborne.selenide.SelenideElement;
 
-import java.io.File;
+//import java.io.File;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
@@ -19,16 +19,17 @@ public class RegistrationPage {
             firstNameInput = $("#firstName"),
             lastNameInput = $("#lastName"),
             userEmailInput = $("#userEmail"),
+            //date?
             genderInput = $(".practice-form-wrapper #genderWrapper"),
             userNumberInput = $("#userNumber"),
-            //subjectsInput = $("#subjects1", "#subjects2"),
-            //hobbiesInput = $("#hobbies"),
+            subjectsInput = $("#subjects"),
+            hobbiesInput = $("#hobbies"),
             uploadPictureInput = $("#uploadPicture"),
             currentAddressInput = $("#currentAddress"),
             stateInput = $("#state"),
             cityInput = $("#city"),
 
-            submitButton = $("#submit"),
+            //submitButton = $("#submit"),
             resultsTable = $(".table-responsive");
 
     // actions
@@ -40,7 +41,6 @@ public class RegistrationPage {
     }
     //”Olga”
     public RegistrationPage setFirstName(String firstName) {firstNameInput.setValue(firstName);
-
         return this;
     }
     //”Kos”
@@ -54,7 +54,6 @@ public class RegistrationPage {
         return this;
     }
 
-
     //Gender
     public RegistrationPage setGender (String gender) {
         //genderInput.setValue(gender);
@@ -62,23 +61,31 @@ public class RegistrationPage {
     return this;
             }
 
-
-
     //userNumber
     public RegistrationPage setUserNumber (String userNumber) {
         userNumberInput.setValue(userNumber);
         return this;
     }
 
+    public RegistrationPage setSubjects(String subjectsEnglish, String subjectsHistory) {
+        $("#subjectsInput").setValue(subjectsEnglish).pressEnter();
+        $("#subjectsInput").setValue(subjectsHistory).pressEnter();
+        return this;
+    }
+
+    public RegistrationPage setHobbies(String hobbyReading) {
+        $(byText(hobbyReading)).click();
+        return this;
+    }
 
     //Date of Birth
     public void setBirthDate (String day, String month, String year){
         $("#dateOfBirthInput").click(); //клик по кнопке "заполнить ДР"
         calendarComponent.setDate(day, month, year); //универсальный компонент "календарь"
     }
-    //...
-    public RegistrationPage setUploadPicture(File addImg) {
-        uploadPictureInput.uploadFile(addImg);
+
+    public RegistrationPage setUploadPicture(String fileName) {
+        uploadPictureInput.uploadFromClasspath(fileName);
         return this;
     }
 
@@ -88,16 +95,19 @@ public class RegistrationPage {
     }
 
     public RegistrationPage setState(String state) {
+        //$("#state").click();
+
+
         //stateInput.click().setValue(state);
         //$(byText("Haryana")).click();
         //$("#state").click();
         $(stateInput).click();
+        //$(byText(state)).click();
         $(byText(state)).click();
         return this;
     }
 
     public RegistrationPage setCity(String city) {
-        //cityInput.click();
         $(cityInput).click();
         $(byText(city)).click();
         return this;

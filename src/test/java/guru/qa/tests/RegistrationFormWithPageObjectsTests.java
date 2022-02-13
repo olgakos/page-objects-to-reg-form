@@ -25,9 +25,11 @@ public class RegistrationFormWithPageObjectsTests {
     String userEmail = "test@test.ru";
     String gender = "Female";
     String userNumber = "8125560781";
-    //String subjects = "English", "History";
-    //String hobbies = "Reading";
-    //File addImg = "pytpng.png";
+    //date?
+    String subjectsEnglish = "English";
+    String subjectsHistory = "History";
+    String hobbyReading = "Reading";
+    String fileName = "pytpng.png";
     String address = "Moskovskoe 1";
     String state = "Haryana";
     String city = "Panipat";
@@ -45,42 +47,25 @@ public class RegistrationFormWithPageObjectsTests {
             .setFirstName(firstName)
             .setLastName(lastName)
             .setUserEmail(userEmail)
-            //.setGender(gender)
+            .setGender(gender)
             .setUserNumber(userNumber)
-            //.setSubjects(subjects1, subjects2)
-            //.setHobbies(hobbies)
-            //.setUploadPicture(addImg)
+            .setSubjects(subjectsEnglish, subjectsHistory)
+            .setHobbies(hobbyReading)
+            .setUploadPicture(fileName)
             .setAddress(address)
             .setState(state)
             .setCity(city);
-        registrationPage.setBirthDate("23", "3","2000"); //3 it's Apri
+
+             registrationPage.setBirthDate("23", "3","2000"); //3 it's Apri
             //.submit(); // кнопка загрузить
 
-        //$("#genderWrapper").$(byText("Female")).click();  todo: 2 вариант локатора
-        $(byText("Female")).click(); //Gender
-
-        //Subjects (мульти-список)
-        $("#subjectsInput").setValue("English").pressEnter();
-        $("#subjectsInput").setValue("History").pressEnter();
-
-        //Hobbies (check-boxes)
-        $("#hobbies-checkbox-1").scrollTo().parent().click();
-        $(byText("Reading")).click();
-        $("#hobbies-checkbox-3").parent().click(); // todo возможны вараинты, подумать
-
         /*
-        //Picture Select picture
-        $("#uploadPicture").uploadFromClasspath("pytpng.png");
-
-        //Picture Address"
-        $("#currentAddress").setValue("Moskovskoe 1");
-
         //State and City
         $("#state").click();
         $(byText("Haryana")).click();
         $("#city").click();
         $(byText("Panipat")).click();
-*/
+        */
 
         //button
         //$("#submit").click();
@@ -92,12 +77,12 @@ public class RegistrationFormWithPageObjectsTests {
         registrationPage
             .checkForm("Student Name", firstName + " " + lastName)
             .checkForm("Student Email", userEmail)
-            .checkForm("Gender", "Female")
+            .checkForm("Gender", gender)
             .checkForm("Mobile", userNumber)
             .checkForm("Date of Birth", "23 April,2000")
             .checkForm("Subjects", "English, History")
             .checkForm("Hobbies", "Sports, Reading, Music")
-            .checkForm("Picture", "pytpng.png")
+            .checkForm("Picture", fileName)
             .checkForm("Address", address)
             .checkForm("State and City", "Haryana Panipat");
 
