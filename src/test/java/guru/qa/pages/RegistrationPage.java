@@ -17,12 +17,20 @@ public class RegistrationPage {
             firstNameInput = $("#firstName"),
             lastNameInput = $("#lastName"),
             userEmailInput = $("#userEmail"),
+            //genderInput = $("#gender"),
+            userNumberInput = $("#userNumber"),
+            //subjectsInput = $("#subjects1", "#subjects2"),
+            //hobbiesInput = $("#hobbies"),
+            uploadPictureInput = $("#uploadPicture"),
+            currentAddressInput = $("#currentAddress"),
+            stateInput = $("#state"),
+            cityInput = $("#city"),
+
             resultsTable = $(".table-responsive");
 
     // actions
     public RegistrationPage openPage(){
         open("/automation-practice-form/"); // страница после baseUrl
-        //вариант 2 проверка заголовка страницы (стало)
         headerTitle.shouldHave(text("Student Registration Form"));
 
         return this;
@@ -33,15 +41,31 @@ public class RegistrationPage {
         return this;
     }
     //”Kos”
-    public RegistrationPage setLastName(String lastName) {lastNameInput.setValue(lastName);
-
+    public RegistrationPage setLastName(String lastName) {
+        lastNameInput.setValue(lastName);
         return this;
     }
     //”test@test.ru”
-    public RegistrationPage setUserEmail (String userEmail) {userEmailInput.setValue(userEmail);
-
+    public RegistrationPage setUserEmail (String userEmail) {
+        userEmailInput.setValue(userEmail);
         return this;
     }
+
+    /*
+    //Gender
+    public RegistrationPage set Gender (String gender)
+
+    return this;
+            }
+
+     */
+
+    //userNumber
+    public RegistrationPage setUserNumber (String userNumber) {
+        userNumberInput.setValue(userNumber);
+        return this;
+    }
+
 
     //Date of Birth
     public void setBirthDate (String day, String month, String year){
@@ -49,6 +73,31 @@ public class RegistrationPage {
         calendarComponent.setDate(day, month, year); //универсальный компонент "календарь"
     }
     //...
+    public RegistrationPage setUploadPicture(String fileName) {
+        uploadPictureInput.uploadFromClasspath(fileName);
+        return this;
+    }
+
+    public RegistrationPage setAddress(String address) {
+        currentAddressInput.setValue(address);
+        return this;
+    }
+
+    public RegistrationPage setState(String state) {
+        stateInput.click();
+        stateInput.click().setValue(state);
+        //$(byText("Haryana")).click();
+        //$("#state").click();
+        $(byText(state)).click();
+        return this;
+    }
+
+    public RegistrationPage setCity(String city) {
+        //cityInput.click();
+        //$("#city").click();
+        $(byText(city)).click();
+        return this;
+    }
 
     //Checking table/checkForm
     //Label and Values:
@@ -57,7 +106,6 @@ public class RegistrationPage {
              resultsTable.$(byText(fieldName))
             // ячейка "пользователськое Значение"
             .parent().shouldHave(text(value));
-
         return this;
     }
 }
