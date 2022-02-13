@@ -8,6 +8,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
+
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
@@ -25,8 +27,8 @@ public class RegistrationFormWithPageObjectsTests {
     String userNumber = "8125560781";
     //String subjects = "English", "History";
     //String hobbies = "Reading";
+    //File addImg = "pytpng.png";
     String address = "Moskovskoe 1";
-    String addImg = "pytpng.png";
     String state = "Haryana";
     String city = "Panipat";
 
@@ -42,14 +44,16 @@ public class RegistrationFormWithPageObjectsTests {
             .setFirstName(firstName)
             .setLastName(lastName)
             .setUserEmail(userEmail)
-            //.setGender(gender)
+            .setGender(gender)
             .setUserNumber(userNumber)
             //.setSubjects(subjects1, subjects2)
             //.setHobbies(hobbies)
-            .setUploadPicture(addImg)
+            //.setUploadPicture(addImg)
             .setAddress(address)
             .setState(state)
-            .setCity(city);
+            .setCity(city)
+            .submit(); // кнопка загрузить
+
 
         //$("#genderWrapper").$(byText("Female")).click();  todo: 2 вариант локатора
         $(byText("Female")).click(); //Gender
@@ -67,8 +71,10 @@ public class RegistrationFormWithPageObjectsTests {
         /*
         //Picture Select picture
         $("#uploadPicture").uploadFromClasspath("pytpng.png");
+
         //Picture Address"
         $("#currentAddress").setValue("Moskovskoe 1");
+
         //State and City
         $("#state").click();
         $(byText("Haryana")).click();
@@ -78,7 +84,7 @@ public class RegistrationFormWithPageObjectsTests {
 
         //button
         //$("#submit").click();
-        $("#submit").scrollTo().click(); //скролл на случай если кнопка перекрыта баннером
+        //$("#submit").scrollTo().click(); //скролл на случай если кнопка перекрыта баннером
 
         //Checking table/checkForm
        $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
@@ -87,12 +93,12 @@ public class RegistrationFormWithPageObjectsTests {
             .checkForm("Student Name", firstName + " " + lastName)
             .checkForm("Student Email", userEmail)
             .checkForm("Gender", "Female")
-            .checkForm("Mobile", "8125560781")
+            .checkForm("Mobile", userNumber)
             .checkForm("Date of Birth", "23 April,2000")
             .checkForm("Subjects", "English, History")
             .checkForm("Hobbies", "Sports, Reading, Music")
             .checkForm("Picture", "pytpng.png")
-            .checkForm("Address", "Moskovskoe 1")
+            .checkForm("Address", address)
             .checkForm("State and City", "Haryana Panipat");
 
         $("#closeLargeModal").click(); //button

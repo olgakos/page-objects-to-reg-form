@@ -3,6 +3,8 @@ package guru.qa.pages;
 import guru.qa.pages.components.CalendarComponent;
 import com.codeborne.selenide.SelenideElement;
 
+import java.io.File;
+
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
@@ -17,7 +19,7 @@ public class RegistrationPage {
             firstNameInput = $("#firstName"),
             lastNameInput = $("#lastName"),
             userEmailInput = $("#userEmail"),
-            //genderInput = $("#gender"),
+            genderInput = $(".practice-form-wrapper #genderWrapper"),
             userNumberInput = $("#userNumber"),
             //subjectsInput = $("#subjects1", "#subjects2"),
             //hobbiesInput = $("#hobbies"),
@@ -26,6 +28,7 @@ public class RegistrationPage {
             stateInput = $("#state"),
             cityInput = $("#city"),
 
+            submitButton = $("#submit"),
             resultsTable = $(".table-responsive");
 
     // actions
@@ -51,14 +54,15 @@ public class RegistrationPage {
         return this;
     }
 
-    /*
-    //Gender
-    public RegistrationPage set Gender (String gender)
 
+    //Gender
+    public RegistrationPage set Gender (String gender) {
+        //genderInput.setValue(gender);
+        $(byText(gender)).click();
     return this;
             }
 
-     */
+
 
     //userNumber
     public RegistrationPage setUserNumber (String userNumber) {
@@ -73,8 +77,8 @@ public class RegistrationPage {
         calendarComponent.setDate(day, month, year); //универсальный компонент "календарь"
     }
     //...
-    public RegistrationPage setUploadPicture(String fileName) {
-        uploadPictureInput.uploadFromClasspath(fileName);
+    public RegistrationPage setUploadPicture(File addImg) {
+        uploadPictureInput.uploadFile(addImg);
         return this;
     }
 
@@ -84,18 +88,23 @@ public class RegistrationPage {
     }
 
     public RegistrationPage setState(String state) {
-        stateInput.click();
-        stateInput.click().setValue(state);
+        //stateInput.click().setValue(state);
         //$(byText("Haryana")).click();
         //$("#state").click();
+        $(stateInput).click();
         $(byText(state)).click();
         return this;
     }
 
     public RegistrationPage setCity(String city) {
         //cityInput.click();
-        //$("#city").click();
+        $(cityInput).click();
         $(byText(city)).click();
+        return this;
+    }
+
+    public RegistrationPage submit() {
+        submitButton.click();
         return this;
     }
 
