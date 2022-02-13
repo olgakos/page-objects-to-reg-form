@@ -38,13 +38,8 @@ public class RegistrationFormWithPageObjectsTests {
         //$("#genderWrapper").$(byText("Female")).click();  todo: 2 вариант локатора
         $(byText("Female")).click(); //Gender
         $("#userNumber").setValue("8125560781"); //Mobile(10 Digits)
-
         //Date of Birth
-        $("#dateOfBirthInput").click();
-        $(".react-datepicker__month-select").selectOptionByValue("3"); //it's April
-        $(".react-datepicker__year-select").selectOptionByValue("2000");
-        $$(".react-datepicker__day").find(text("23")).click();
-
+        registrationPage.setBirthDate("23", "3", "2000"); //3 it's Apri
         //Subjects (мульти-список)
         //$("#subjectsInput").scrollTo().setValue("English"); // не сработал если >1
         $("#subjectsInput").setValue("English").pressEnter();
@@ -73,7 +68,7 @@ public class RegistrationFormWithPageObjectsTests {
         //Checking table/checkForm
        $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
         //Label / Values
-        //registrationPage.openPage()
+        //registrationPage.openPage() it's bug!
         registrationPage
             .checkForm("Student Name", firstName + " " + lastName)
             .checkForm("Student Email", userEmail)

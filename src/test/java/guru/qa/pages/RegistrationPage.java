@@ -5,8 +5,7 @@ import com.codeborne.selenide.SelenideElement;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.*;
 
 public class RegistrationPage {
     // components
@@ -42,6 +41,15 @@ public class RegistrationPage {
     public RegistrationPage setUserEmail (String userEmail) {userEmailInput.setValue(userEmail);
 
         return this;
+    }
+
+    //Date of Birth
+    //почему надо void а не RegistrationPage ???
+    public void setBirthDate (String day, String month, String year){
+        $("#dateOfBirthInput").click();
+        $(".react-datepicker__month-select").selectOptionByValue(month); //3 it's April
+        $(".react-datepicker__year-select").selectOption(year);
+        $$(".react-datepicker__day").find(text(day)).click();
     }
 
     //...
