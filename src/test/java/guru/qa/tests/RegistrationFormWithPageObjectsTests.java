@@ -39,7 +39,7 @@ public class RegistrationFormWithPageObjectsTests {
         $(byText("Female")).click(); //Gender
         $("#userNumber").setValue("8125560781"); //Mobile(10 Digits)
         //Date of Birth
-        registrationPage.setBirthDate("23", "3", "2000"); //3 it's Apri
+        registrationPage.setBirthDate("23", "3","2000"); //3 it's Apri
         //Subjects (мульти-список)
         //$("#subjectsInput").scrollTo().setValue("English"); // не сработал если >1
         $("#subjectsInput").setValue("English").pressEnter();

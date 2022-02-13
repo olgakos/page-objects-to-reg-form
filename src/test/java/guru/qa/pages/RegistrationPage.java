@@ -1,6 +1,6 @@
 package guru.qa.pages;
 
-//import guru.qa.pages.components.CalendarComponent;
+import guru.qa.pages.components.CalendarComponent;
 import com.codeborne.selenide.SelenideElement;
 
 import static com.codeborne.selenide.Condition.text;
@@ -9,6 +9,7 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class RegistrationPage {
     // components
+    CalendarComponent calendarComponent = new CalendarComponent();
 
     // locators
     private SelenideElement
@@ -22,7 +23,6 @@ public class RegistrationPage {
     public RegistrationPage openPage(){
         open("/automation-practice-form/"); // страница после baseUrl
         //вариант 2 проверка заголовка страницы (стало)
-
         headerTitle.shouldHave(text("Student Registration Form"));
 
         return this;
@@ -44,14 +44,10 @@ public class RegistrationPage {
     }
 
     //Date of Birth
-    //почему надо void а не RegistrationPage ???
     public void setBirthDate (String day, String month, String year){
-        $("#dateOfBirthInput").click();
-        $(".react-datepicker__month-select").selectOptionByValue(month); //3 it's April
-        $(".react-datepicker__year-select").selectOption(year);
-        $$(".react-datepicker__day").find(text(day)).click();
+        $("#dateOfBirthInput").click(); //клик по кнопке "заполнить ДР"
+        calendarComponent.setDate(day, month, year); //универсальный компонент "календарь"
     }
-
     //...
 
     //Checking table/checkForm
