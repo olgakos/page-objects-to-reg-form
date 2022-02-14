@@ -8,14 +8,12 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.open;
 
-@DisplayName("Это страница Practice Form (v.3)")
+@DisplayName("Это страница Practice Form (v.4)")
 
 public class RegistrationFormWithPageObjectsTests {
 
@@ -25,7 +23,9 @@ public class RegistrationFormWithPageObjectsTests {
     String userEmail = "test@test.ru";
     String gender = "Female";
     String userNumber = "8125560781";
-    //date?
+    String year = "2000";
+    String month = "April";
+    String day = "23";
     String subjectsEnglish = "English";
     String subjectsHistory = "History";
     String hobbyReading = "Reading";
@@ -44,49 +44,39 @@ public class RegistrationFormWithPageObjectsTests {
     void studentRegistrationFormTests() {
 
         registrationPage.openPage() // перешли на страницу /automation-practice-form/
-            .setFirstName(firstName)
-            .setLastName(lastName)
-            .setUserEmail(userEmail)
-            .setGender(gender)
-            .setUserNumber(userNumber)
-            .setSubjects(subjectsEnglish, subjectsHistory)
-            .setHobbies(hobbyReading)
-            .setUploadPicture(fileName)
-            .setAddress(address)
-            .setState(state)
-            .setCity(city);
+                .setFirstName(firstName)
+                .setLastName(lastName)
+                .setUserEmail(userEmail)
+                .setGender(gender)
+                .setUserNumber(userNumber)
+                .setBirthDate(day, month, year)
+                .setSubjects(subjectsEnglish, subjectsHistory)
+                .setHobbies(hobbyReading)
+                .setUploadPicture(fileName)
+                .setAddress(address)
+                .setState(state)
+                .setCity(city)
+                .submit(); // кнопка загрузить
 
-             registrationPage.setBirthDate("23", "3","2000"); //3 it's Apri
-            //.submit(); // кнопка загрузить
-
-        /*
-        //State and City
-        $("#state").click();
-        $(byText("Haryana")).click();
-        $("#city").click();
-        $(byText("Panipat")).click();
-        */
-
-        //button
-        //$("#submit").click();
-        $("#submit").scrollTo().click(); //скролл на случай если кнопка перекрыта баннером
+         //registrationPage.setBirthDate("23", "April","2000"); //
 
         //Checking table/checkForm
-       $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
+       //$("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
         //Label / Values
         registrationPage
-            .checkForm("Student Name", firstName + " " + lastName)
-            .checkForm("Student Email", userEmail)
-            .checkForm("Gender", gender)
-            .checkForm("Mobile", userNumber)
-            .checkForm("Date of Birth", "23 April,2000")
-            .checkForm("Subjects", "English, History")
-            .checkForm("Hobbies", "Sports, Reading, Music")
-            .checkForm("Picture", fileName)
-            .checkForm("Address", address)
-            .checkForm("State and City", "Haryana Panipat");
-
-        $("#closeLargeModal").click(); //button
+                .checkForm("Student Name", firstName + " " + lastName)
+                .checkForm("Student Email", userEmail)
+                .checkForm("Gender", gender)
+                .checkForm("Mobile", userNumber)
+                //.checkForm("Date of Birth", "23 April,2000")
+                .checkForm("Date of Birth", day + " " + month + "," + year)
+                .checkForm("Subjects", "English, History")
+                .checkForm("Hobbies", hobbyReading)
+                .checkForm("Picture", fileName)
+                .checkForm("Address", address)
+                .checkForm("State and City", state + " " + city)
+                .closeModal();
+                //$("#closeLargeModal").click(); //button
     }
 }
 

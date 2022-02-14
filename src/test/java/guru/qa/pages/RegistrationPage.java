@@ -19,7 +19,7 @@ public class RegistrationPage {
             firstNameInput = $("#firstName"),
             lastNameInput = $("#lastName"),
             userEmailInput = $("#userEmail"),
-            //date?
+            birthDateInput = $("#dateOfBirthInput"),
             genderInput = $(".practice-form-wrapper #genderWrapper"),
             userNumberInput = $("#userNumber"),
             subjectsInput = $("#subjects"),
@@ -28,15 +28,14 @@ public class RegistrationPage {
             currentAddressInput = $("#currentAddress"),
             stateInput = $("#state"),
             cityInput = $("#city"),
-
-            //submitButton = $("#submit"),
-            resultsTable = $(".table-responsive");
-
+            submitButton = $("#submit"),
+            headerTable = $("#example-modal-sizes-title-lg"), // заголовок таблицы
+            resultsTable = $(".table-responsive"),
+            closeButton = $("#closeLargeModal");
     // actions
     public RegistrationPage openPage(){
         open("/automation-practice-form/"); // страница после baseUrl
         headerTitle.shouldHave(text("Student Registration Form"));
-
         return this;
     }
     //”Olga”
@@ -53,17 +52,21 @@ public class RegistrationPage {
         userEmailInput.setValue(userEmail);
         return this;
     }
-
     //Gender
     public RegistrationPage setGender (String gender) {
         //genderInput.setValue(gender);
         $(byText(gender)).click();
     return this;
-            }
-
+    }
     //userNumber
     public RegistrationPage setUserNumber (String userNumber) {
         userNumberInput.setValue(userNumber);
+        return this;
+    }
+    //Date of Birth
+    public RegistrationPage setBirthDate (String day, String month, String year){
+        $("#dateOfBirthInput").click(); //клик по кнопке "заполнить ДР"
+        calendarComponent.setDate(day, month, year); //универсальный компонент "календарь"
         return this;
     }
 
@@ -78,12 +81,6 @@ public class RegistrationPage {
         return this;
     }
 
-    //Date of Birth
-    public void setBirthDate (String day, String month, String year){
-        $("#dateOfBirthInput").click(); //клик по кнопке "заполнить ДР"
-        calendarComponent.setDate(day, month, year); //универсальный компонент "календарь"
-    }
-
     public RegistrationPage setUploadPicture(String fileName) {
         uploadPictureInput.uploadFromClasspath(fileName);
         return this;
@@ -95,34 +92,35 @@ public class RegistrationPage {
     }
 
     public RegistrationPage setState(String state) {
-        //$("#state").click();
-
-
-        //stateInput.click().setValue(state);
-        //$(byText("Haryana")).click();
-        //$("#state").click();
-        $(stateInput).click();
-        //$(byText(state)).click();
+        stateInput.scrollTo().click();
         $(byText(state)).click();
         return this;
     }
 
     public RegistrationPage setCity(String city) {
-        $(cityInput).click();
+        cityInput.click();
         $(byText(city)).click();
         return this;
     }
 
-    /*
+
     public RegistrationPage submit() {
-        submitButton.click();
+        $("#submit").scrollTo().click(); //скролл на случай если кнопка перекрыта баннером
+        //$("#submit").click();
+        //submitButton.click();
         return this;
     }
-    */
+
+    public RegistrationPage closeModal() {
+        $("#closeLargeModal").click(); //button
+        return this;
+    }
+
 
     //Checking table/checkForm
     //Label and Values:
     public RegistrationPage checkForm(String fieldName, String value) {
+             headerTable.shouldHave(text("Thanks for submitting the form"));
              //ячейка "Как называется поле
              resultsTable.$(byText(fieldName))
             // ячейка "пользователськое Значение"
