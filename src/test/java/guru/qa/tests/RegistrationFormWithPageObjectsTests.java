@@ -1,17 +1,10 @@
 package guru.qa.tests;
 
 import com.codeborne.selenide.Configuration;
-
 import guru.qa.pages.RegistrationPage;
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.Selenide.open;
 
 @DisplayName("Это страница Practice Form (v.4)")
 
@@ -58,27 +51,19 @@ public class RegistrationFormWithPageObjectsTests {
                 .setCity(city)
                 .submit(); // кнопка загрузить
 
-         //registrationPage.setBirthDate("23", "April","2000"); //
-
         //Checking table/checkForm
-       //$("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
         //Label / Values
         registrationPage
                 .checkForm("Student Name", firstName + " " + lastName)
                 .checkForm("Student Email", userEmail)
                 .checkForm("Gender", gender)
                 .checkForm("Mobile", userNumber)
-                //.checkForm("Date of Birth", "23 April,2000")
                 .checkForm("Date of Birth", day + " " + month + "," + year)
                 .checkForm("Subjects", "English, History")
                 .checkForm("Hobbies", hobbyReading)
                 .checkForm("Picture", fileName)
                 .checkForm("Address", address)
                 .checkForm("State and City", state + " " + city)
-                .closeModal();
-                //$("#closeLargeModal").click(); //button
+                .closeModal(); //закрыть модальнео окно
     }
 }
-
-
-
